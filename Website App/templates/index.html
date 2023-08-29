@@ -1,0 +1,398 @@
+<!--  how to use css in python_ flask-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--  Load CSS in Flask with html-->
+    <link rel="stylesheet" href='/staticFile/index.css' />
+ 
+<!--  Load JavaScript in Flask with html-->
+  <script>
+    alert("Page has been loaded successfully")
+  </script>
+ 
+  <head>
+    <meta charset="UTF-8">
+    <title>Background</title>
+
+    <style>
+        body{
+            background: linear-gradient(to left, #8942a8, #ba382f);
+            color: white;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        .container {
+        display: flex;
+        height: 100vh;
+        overflow-x: hidden;
+    }
+        .inspiration{
+            flex: 0 0 25%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            background-color: black;
+            width: 25%;
+            height: 150%;
+            overflow: auto;
+        }
+        .content {
+            flex: 1;
+        position: absolute;
+        top: 0;
+        left: 25%; /* Adjust the left value to match the width of the .inspiration block */
+        width: 75%; /* Adjust the width to match the remaining percentage */
+        height: 100vh; /* Set a specific height for the content area */
+       
+    }
+        .paint{
+            margin: 35px;
+            width: 75%;
+            height: 30%;
+        }
+        .banner-text ul{
+            list-style-type: none;
+            display: flex;
+            position: absolute;
+            right: 0;
+        }
+        .banner-text li{
+            padding-right: 50px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        h1{
+            position: absolute;
+            top:20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+
+        }
+        .box-area{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .box-area li{
+            position: absolute;
+            display: block;
+            list-style-type: none;
+            width: 25px;
+            height: 25px;
+            background: rgba(255,255,255,0.2);
+            animation: animate 20s linear infinite;
+            bottom: -150px;
+        }
+        .box-area li:nth-child(1){
+            left: 86%;
+            width: 80px;
+            height:80px;
+            animation-delay: 0s;
+        }
+        .box-area li:nth-child(2){
+            left: 12%;
+            width: 30px;
+            height:30px;
+            animation-delay: 1.5s;
+            animation-duration: 10s;
+        }
+        .box-area li:nth-child(3){
+            left: 71%;
+            width: 100px;
+            height:100px;
+            animation-delay: 5.5s;
+        }
+
+        .box-area li:nth-child(4){
+            left: 70%;
+            width: 100px;
+            height:100px;
+            animation-delay:0s;
+            animation-duration: 15s;
+        }
+        .box-area li:nth-child(5){
+            left: 65%;
+            width: 40px;
+            height:40px;
+            animation-delay: 0s;
+        }
+        .box-area li:nth-child(6){
+            left: 15%;
+            width: 110px;
+            height:110px;
+            animation-delay: 3.5s;
+
+        }
+        .box-area li:nth-child(7){
+            left: 50%;
+            width: 80px;
+            height:80px;
+            animation-delay: 2s;
+
+        }
+        .box-area li:nth-child(8){
+            left: 40%;
+            width: 60px;
+            height:60px;
+            animation-delay: 2s;
+            animation-duration: 10s;
+        }
+
+        @keyframes animate{
+            0%{
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100%{
+                transform: translateY(-800px) rotate(360deg);
+            }
+
+        }
+        .navbar li:hover{
+            background-color: white;
+        }
+        .image-grid img{
+            width: 100%;
+            height: 80%;
+        }
+       
+        .image-grid {
+            margin: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+            grid-auto-rows: minmax(100px, auto);
+        }
+        .drag-drop{
+            position: absolute;
+            top:100%;
+            left: 15%;
+            margin: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+            grid-auto-rows: minmax(100px, auto);
+        }
+        .c3{
+            grid-column: 1/2;
+            grid-row: 1;
+        }
+        h2{
+            font-size: 15px;
+        }
+        p{
+            position: absolute;
+            top: 35%;
+            left: 10%;
+            width: 90%;
+        }
+
+        .result{
+            position: absolute;
+            top: 55%;
+            left: 10%;
+            width: 80%;
+            height: 35%;
+            border-radius: 20px;
+        }
+        input[type="file"] {
+  outline: none;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+input[type="file"]:focus-within::file-selector-button,
+input[type="file"]:focus::file-selector-button {
+  outline: 2px solid #0964b0;
+  outline-offset: 2px;
+}
+
+input[type="file"]::before {
+  top: 16px;
+}
+
+input[type="file"]::after {
+  top: 14px;
+}
+
+/* ------- From Step 2 ------- */
+
+input[type="file"] {
+  position: relative;
+}
+
+input[type="file"]::file-selector-button {
+  width: 136px;
+  color: transparent;
+
+}
+
+/* Faked label styles and icon */
+input[type="file"]::before {
+  position: absolute;
+  pointer-events: none;
+  /*   top: 11px; */
+  left: 40px;
+  color: #0964b0;
+  content: "Upload File";
+}
+
+input[type="file"]::after {
+  position: absolute;
+  pointer-events: none;
+  /*   top: 10px; */
+  left: 16px;
+  height: 20px;
+  width: 20px;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+}
+
+/* ------- From Step 1 ------- */
+
+/* file upload button */
+input[type="file"]::file-selector-button {
+  border-radius: 4px;
+  padding: 0 19px;
+  height: 40px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  margin-right: 16px;
+  transition: background-color 200ms;
+}
+
+/* file upload button hover state */
+input[type="file"]::file-selector-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* file upload button active state */
+input[type="file"]::file-selector-button:active {
+  background-color: #e5e7eb;
+}
+
+/* ------------------------ */
+
+/* default boilerplate to center input */
+body {
+  min-height: 100vh;
+  max-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vmax;
+  box-sizing: border-box;
+}
+
+input[type=submit]{
+    
+  background-color: #2504aa;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.submit{
+    position: absolute;
+    top: 130%;
+    left: 42%;
+}
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="inspiration">
+            <img src="../static/paint.gif" alt="pain" class="paint" /> 
+            
+            <h2> Some inspiration </h2>
+
+            <h2> Below are some of the art we created using MyStyle. </h2>
+            
+
+            <div class="banner-image">
+                <div class="image-grid">
+                    
+                    <div><img src="../static/content3.jpg" class="c3" /></div>
+                    <div><img src="../static/art3.png" /></div>
+
+                    <div><img src="../static/content4.JPG" /></div>
+                    <div><img src="../static/art4.png" /></div>
+                    
+                    <div><img src="../static/content6.jpg" /></div>
+                    <div><img src="../static/stylized_image copy.jpg" /></div>
+                    
+                    <div><img src="../static/content7.jpg" /></div>
+                    <div><img src="../static/stylized_image.jpg" /></div>
+                </div>  
+            </div>
+
+            <h2> Made by Djoupe Audrey. </h2>
+            
+        </div>
+
+        <div class="content">
+            <div class="banner-text">
+                <ul class="navbar">
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                    <li>Discover</li>
+                </ul>
+            </div>
+
+            <h1>MyStyle</h1>
+
+            <p><b><i>Create Digital Art using Machine Learning !  </i></b>Create Digital Art using Machine Learning !   We takes 2 images — Content Image & Style Image — and blends them together so that the resulting output image retains the core elements of the content image, but appears to be “painted” in the style of the style reference image.</p>
+
+            <img src="../static/result.png" class="result" />
+        
+        <form method=post action="/" enctype=multipart/form-data>    
+            <div class="drag-drop">
+                <div>
+                    <label for="file-input">Upload content image:</label>
+
+                    <input type="file" id="file-input" name="content-file" title="No file found" accept="image/png, image/jpeg" class="input" />
+                </div>
+
+                <div>
+                    <label for="avatar">Upload Style image:</label>
+
+                    <input type="file" id="avatar" name="style-file" accept="image/png, image/jpeg" class="input" />
+                </div>
+            </div>
+
+            <div class="submit">
+                <input type="submit" value="Submit">
+            </div>
+        </form>    
+        </div>
+    </div>
+    
+    
+
+    <div class="animate-area">
+            <ul class="box-area">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+</div>
+</body>
+</html>
