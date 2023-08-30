@@ -39,17 +39,60 @@ Having the above intuition, let’s define our Content Loss and Style loss to ra
 
 ### Content Loss
 
-Calculating content loss means how similar is the randomly generated noisy image(G) to the content image(C).In order to calculate content loss :
+Calculating content loss means how similar is the randomly generated noisy image(G) to the content image(C).In order to calculate content loss:
 
 Assume that we choose a hidden layer (L) in a pre-trained network(VGG network) to compute the loss.Therefore, let P and F be the original image and the image that is generated.And, F[l] and P[l] be feature representation of the respective images in layer L.Now,the content loss is defined as follows:
 
 ![image](https://github.com/Dreys-bot/Neural-Style-Transfert/blob/main/0_PJK8-P3tBWrUV1q1.png)
 
-## 👨‍💻 Implementation
+### Style Loss
 
-Early versions of NST treated the task as an optimization problem, requiring hundreds or thousands of iterations to perform style transfer on a single image. To tackle this inefficiency, researchers developed what’s referred to as "Fast Neural Style Transfer". Fast style transfer also uses deep neural networks but trains a standalone model to transform any image in a single, feed-forward pass. Trained models can stylize any image with just one iteration through the network, rather than thousands.State-of-the-art style transfer models can even learn to imprint multiple styles via the same model so that a single input content image can be edited in any number of creative ways.
+Before calculating style loss, let’s see what is the meaning of “**style of a image**” or how we capture style of an image.
 
-In this project we used a pre-trained "Arbitrary Neural Artistic Stylization Network" - a Fast-NST architecture which you can find [here](https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2). The model is successfully trained on a corpus of roughly 80,000 paintings and is able to generalize to paintings previously unobserved.
+![image](https://github.com/Dreys-bot/Neural-Style-Transfert/blob/main/0_dyVKNRn36XORjr9v.png)
+
+
+This image shows different channels or feature maps or filters at a particular chosen layer l.Now, in order to capture the style of an image we would calculate how “correlated” these filters are to each other meaning how similar are these feature maps.**But what is meant by correlation ?**
+
+**Let’s understand it with the help of an example:**
+
+Let the first two channel in the above image be Red and Yellow.Suppose, the red channel captures some simple feature (say, vertical lines) and if these two channels were correlated then whenever in the image there is a vertical lines that is detected by Red channel then there will be a Yellow-ish effect of the second channel.
+
+Now,let’s look at how to calculate these correlations (mathematically).
+
+In-order to calculate a correlation between different filters or channels we calculate the dot-product between the vectors of the activations of the two filters.The matrix thus obtained is called **Gram Matrix**.
+
+**But how do we know whether they are correlated or not ?**
+
+If the dot-product across the activation of two filters is large then two channels are said to be correlated and if it is small then the images are un-correlated.
+
+**Putting it mathematically**
+
+**Gram Matrix of Style Image(S):**
+
+Here k and k’ represents different filters or channels of the layer L. Let’s call this Gkk’[l][S].
+
+![image](https://github.com/Dreys-bot/Neural-Style-Transfert/blob/main/0_L8Y_zB0tWkcxFKMh.png)
+                    
+
+**Gram Matrix for Generated Image(G):**
+
+Here k and k’ represents different filters or channels of the layer L.Let’s call this Gkk’[l][G].
+
+![image](https://github.com/Dreys-bot/Neural-Style-Transfert/blob/main/0_yjkYrNf7A_oMB_2V.png) 
+
+
+Now,we are in the position to define Style loss:
+
+Cost function between Style and Generated Image is the square of difference between the Gram Matrix of the style Image with the Gram Matrix of generated Image.
+
+![image](https://github.com/Dreys-bot/Neural-Style-Transfert/blob/main/0_2LrpMFwbhD8OePdd.png)
+
+# Total Loss Function :
+
+The total loss function is the sum of the cost of the content and the style image.Mathematically,it can be expressed as :
+
+![image](https://github.com/Dreys-bot/Neural-Style-Transfert/blob/main/0_JPXny-rYTIeZRSb4.png)
 
 
 ## To run locally
@@ -87,43 +130,10 @@ plt.show()
 
 ## 🔥 Web Interface & API
 
-In order to make it easy for anyone to interact with the model,we created a clean web interface using Streamlit and deployed it on their official cloud space.
+In order to make it easy for anyone to interact with the model,we created a clean web interface using flask.
 
-- Checkout Official Website : https://share.streamlit.io/deepeshdm/pixelmix/main/App.py
-- Website Repository : [here](https://github.com/deepeshdm/PixelMix)
+![image](https://github.com/Dreys-bot/Neural-Style-Transfert/blob/main/ezgif.com-video-to-gif.gif)
 
-<div align="center">
-  <img src="/Imgs/website.gif" width="90%"/>
-</div>
-
-
-## 🖼🖌 Some of the art we created in this project
-
-<div align="center">
-  <img src="/Imgs/content1.jpg" width="35%"/>
-<img src="/Imgs/art1.png" width="35%"/>
-</div>
-
-<div align="center">
-<img src="/Imgs/content2.jpg" width="35%"/>
-<img src="/Imgs/art2.png" width="35%"/>
-</div>
-
-<div align="center">
-<img src="/Imgs/content3.jpg" width="35%"/>
-<img src="/Imgs/art3.png" width="35%"/>
-</div>
-
-<div align="center">
-<img src="/Imgs/content4.jpg" width="35%"/>
-<img src="/Imgs/art4.png" width="35%"/>
-</div>
-
-References :
-- https://arxiv.org/abs/1508.06576 
-- https://keras.io/examples/generative/neural_style_transfer/ 
-- https://arxiv.org/abs/1705.06830 
-- https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2 
 
 
 
