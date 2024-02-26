@@ -103,7 +103,7 @@ The total loss function is the sum of the cost of the content and the style imag
 
 2. Import this repository using git command
 ```
-git clone https://github.com/deepeshdm/Neural-Style-Transfer.git
+git clone https://github.com/Dreys-bot/Neural-Style-Transfert.git
 ```
 3. Install all the required dependencies inside a virtual environment
 ```
